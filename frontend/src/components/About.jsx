@@ -1,0 +1,3 @@
+export default function About() {
+    return <section className="about-section" id="about"><div><span className="eyebrow">ABOUT / 05</span><h2>WHY<br />CORNEAAI?</h2></div><div className="about-copy"><p>CorneaAI is a research prototype for AI-assisted analysis of corneal ulcer images. It uses a U-Net++ architecture with a ResNet-50 encoder for semantic segmentation.</p><p>The browser remains a client: image handling and presentation live in React, while inference remains inside the existing FastAPI service.</p><div className="about-tags"><span>AI-ASSISTED SCREENING</span><span>COMPUTER VISION</span><span>SEGMENTATION</span><span>RESEARCH PROTOTYPE</span></div></div></section>;
+}

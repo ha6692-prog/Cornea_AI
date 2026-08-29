@@ -1,0 +1,3 @@
+export default function Footer() {
+    return <footer className="site-footer"><div className="footer-main"><div><strong className="footer-logo">CORNEAAI</strong><p>AI-ASSISTED OCULAR ANALYSIS</p></div><div className="footer-column"><span>INDEX</span><a href="#analysis">ANALYSIS</a><a href="#pipeline">PIPELINE</a><a href="#model">MODEL</a><a href="#about">ABOUT</a></div><div className="footer-column"><span>STACK</span><p>REACT / VITE</p><p>FASTAPI</p><p>U-NET++ / RESNET-50</p></div></div><div className="footer-bottom"><span>RESEARCH PROTOTYPE</span><span>AI-ASSISTED OCULAR ANALYSIS</span></div></footer>;
+}
