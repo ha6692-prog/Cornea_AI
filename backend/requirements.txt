@@ -3,8 +3,6 @@ uvicorn[standard]
 python-multipart
 numpy
 Pillow
-torch
-torchvision
 segmentation-models-pytorch
 albumentations
 huggingface_hub
