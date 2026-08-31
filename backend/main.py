@@ -10,6 +10,7 @@ import segmentation_models_pytorch as smp
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
+from huggingface_hub import hf_hub_download
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -46,14 +47,8 @@ DEVICE = torch.device(
 
 IMG_SIZE = 256
 
-BASE_DIR = os.path.dirname(
-    os.path.abspath(__file__)
-)
-
-MODEL_PATH = os.path.join(
-    BASE_DIR,
-    "unetpp_resnet50_best_final.pth"
-)
+MODEL_REPO = "hiteshagrawal570/cornea-ai-unetpp-resnet50"
+MODEL_FILENAME = "unetpp_resnet50_best_final.pth"
 
 
 # ============================================================
@@ -64,10 +59,7 @@ print("=" * 60)
 print("LOADING CORNEAL ULCER MODEL")
 print("=" * 60)
 
-print("Device:", DEVICE)
-print("Model path:", MODEL_PATH)
-print("Model exists:", os.path.exists(MODEL_PATH))
-
+print(f"Device: {DEVICE}")
 
 model = smp.UnetPlusPlus(
     encoder_name="resnet50",
@@ -77,30 +69,25 @@ model = smp.UnetPlusPlus(
     activation=None
 ).to(DEVICE)
 
-
-if not os.path.exists(MODEL_PATH):
-
-    raise FileNotFoundError(
-        f"""
-Model weights not found!
-
-Expected location:
-{MODEL_PATH}
-
-Please put:
-unetpp_resnet50_best_final.pth
-
-inside the backend folder.
-"""
+try:
+    MODEL_PATH = hf_hub_download(
+        repo_id=MODEL_REPO,
+        filename=MODEL_FILENAME
     )
 
+    print(f"Model downloaded/located at: {MODEL_PATH}")
 
-state_dict = torch.load(
-    MODEL_PATH,
-    map_location=DEVICE
+except Exception as e:
+    print("❌ Failed to download model from Hugging Face")
+    print(f"Error: {e}")
+    raise
+
+model.load_state_dict(
+    torch.load(
+        MODEL_PATH,
+        map_location=DEVICE
+    )
 )
-
-model.load_state_dict(state_dict)
 
 model.eval()
 

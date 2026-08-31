@@ -7,3 +7,4 @@ torch
 torchvision
 segmentation-models-pytorch
 albumentations
+huggingface_hub
