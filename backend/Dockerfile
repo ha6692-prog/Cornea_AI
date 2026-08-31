@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY main.py .
-COPY unetpp_resnet50_best_final.pth .
 
 EXPOSE 8000
 
